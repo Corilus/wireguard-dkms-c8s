@@ -52,6 +52,10 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
-* Mon Aug 15 2016 Joe Doss <joe@solidadmin.com> - 0.0.20160808-1
+%changelog
+* Wed Aug 17 2016 Joe Doss <joe@solidadmin.com> - 0.0.20160808-2
+- Spec adjustments
+
+* Mon Aug 15 2016 Joe Doss <joe@solidadmin.com> - 0.0.20160808-2
 - Initial WireGuard DKMS RPM
 - Version 0.0.20160808
