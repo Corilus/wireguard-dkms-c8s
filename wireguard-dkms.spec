@@ -2,8 +2,8 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20160808
-Release:        2%{?dist}
+Version:        0.0.20161001
+Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
 Summary:        Fast, modern, secure VPN tunnel
