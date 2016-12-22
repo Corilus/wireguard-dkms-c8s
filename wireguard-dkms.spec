@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20161025
+Version:        0.0.20161218
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
@@ -11,8 +11,7 @@ License:        GPLv2
 Group:          System Environment/Kernel
 BuildArch:      noarch
 
-Source0:        https://git.zx2c4.com/WireGuard/snapshot/WireGuard-experimental-%{version}.tar.xz
-Source1:        %{dkms_name}-dkms.conf
+Source0:        https://git.zx2c4.com/WireGuard/snapshot/WireGuard-%{version}.tar.xz
 
 BuildRequires:  kernel-devel, sed
 
@@ -29,16 +28,13 @@ running on embedded interfaces and super computers alike, fit for
 many different circumstances. It runs over UDP.
 
 %prep
-%setup -q -n WireGuard-experimental-%{version}
-
-cp -f %{SOURCE1} %{_builddir}/WireGuard-experimental-%{version}/src/dkms.conf
-sed -i -e 's/__VERSION_STRING/%{version}/g' %{_builddir}/WireGuard-experimental-%{version}/src/dkms.conf
+%setup -q -n WireGuard-%{version}
 
 %build
 
 %install
 mkdir -p %{buildroot}%{_usrsrc}/%{dkms_name}-%{version}/
-cp -fr %{_builddir}/WireGuard-experimental-%{version}/src/* %{buildroot}%{_usrsrc}/%{dkms_name}-%{version}/
+make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/%{dkms_name}-%{version}/ -C %{_builddir}/WireGuard-%{version}/src dkms-install
 
 %post
 dkms add -m %{dkms_name} -v %{version} -q --rpm_safe_upgrade
@@ -52,7 +48,9 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
-%changelog
+* Mon Dec 19 2016 Jason A. Donenfeld <jason@zx2c4.com> - 0.0.20161218-1
+- Spec adjustments
+
 * Wed Aug 17 2016 Joe Doss <joe@solidadmin.com> - 0.0.20160808-2
 - Spec adjustments
 
