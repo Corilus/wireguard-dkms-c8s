@@ -1,8 +1,9 @@
 %global debug_package %{nil}
+%global _disable_source_fetch 0
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20161218
+Version:        0.0.20161223
 Release:        2%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
