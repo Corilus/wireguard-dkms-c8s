@@ -3,7 +3,7 @@
 
 Name:           %{dkms_name}-dkms
 Version:        0.0.20161218
-Release:        2.git.0.724b6a5%{?dist}
+Release:        2.git.0.e253085%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
 Summary:        Fast, modern, secure VPN tunnel
@@ -11,7 +11,7 @@ License:        GPLv2
 Group:          System Environment/Kernel
 BuildArch:      noarch
 
-Source0: wireguard-dkms-git-0.724b6a5.tar.gz
+Source0: wireguard-dkms-git-0.e253085.tar.gz
 
 BuildRequires:  kernel-devel, sed
 
@@ -28,7 +28,7 @@ running on embedded interfaces and super computers alike, fit for
 many different circumstances. It runs over UDP.
 
 %prep
-%setup -q -n wireguard-dkms-git-0.724b6a5
+%setup -q -n wireguard-dkms-git-0.e253085
 
 # Fix the Makefile for CentOS7 since it ships coreutils from 2013.
 sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/WireGuard-%{version}/src/Makefile
