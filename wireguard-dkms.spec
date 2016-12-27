@@ -2,8 +2,8 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20161218
-Release:        2%{?dist}
+Version:        0.0.20161223
+Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
 Summary:        Fast, modern, secure VPN tunnel
@@ -51,9 +51,6 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
-* Thu Dec 22 2016 Joe Doss <joe@solidadmin.com> - 0.0.20161218-2
-- Adjust Makefile to support CentOS 7
-
 * Mon Dec 19 2016 Jason A. Donenfeld <jason@zx2c4.com> - 0.0.20161218-1
 - Spec adjustments
 
