@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20161230
+Version:        0.0.20170105 
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
@@ -51,6 +51,9 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Thu Jan 5 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170105-1
+- Update to 0.0.20170105
+
 * Mon Dec 19 2016 Jason A. Donenfeld <jason@zx2c4.com> - 0.0.20161218-1
 - Spec adjustments
 
