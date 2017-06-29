@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20170613
+Version:        0.0.20170629
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
@@ -13,10 +13,12 @@ BuildArch:      noarch
 
 Source0:        https://git.zx2c4.com/WireGuard/snapshot/WireGuard-%{version}.tar.xz
 
-BuildRequires:  kernel-devel, sed
+BuildRequires:  kernel-devel
+BuildRequires:  sed
 
 Provides:       %{dkms_name}-kmod = %{epoch}:%{version}-%{release}
 Requires:       dkms
+Requires:       elfutils-libelf-devel
 
 %description
 WireGuard is a novel VPN that runs inside the Linux Kernel and uses
@@ -51,6 +53,10 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Thu Jun 29 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170629-1
+- Update to 0.0.20170629
+- Add elfutils-libelf-devel as a dependancy 
+
 * Tue Jun 13 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170613-1
 - Update to 0.0.20170613
 
