@@ -2,8 +2,8 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20170629
-Release:        2%{?dist}
+Version:        0.0.20170706
+Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
 Summary:        Fast, modern, secure VPN tunnel
@@ -53,6 +53,9 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Thu Jul 6 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170706-1
+- Update to 0.0.20170706
+
 * Fri Jun 30 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170629-2
 - Remove elfutils-libelf-devel as a dependancy
 - Add kernel-devel as a dependancy
