@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20170918
+Version:        0.0.20171001
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.io/
@@ -53,6 +53,9 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Mon Oct 2 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171001-1
+- Update to 0.0.20171001
+
 * Mon Sep 18 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170918-1
 - Update to 0.0.20170918
 - Drop support for RHEL 7.3, moving on instead to RHEL 7.4.
