@@ -2,10 +2,10 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20171001
+Version:        0.0.20171005
 Release:        1%{?dist}
 Epoch:          1
-URL:            https://www.wireguard.io/
+URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
 License:        GPLv2
 Group:          System Environment/Kernel
@@ -53,6 +53,10 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Fri Oct 6 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171005-1
+- Update to 0.0.20171005
+- Update RPM spec URL to www.wireguard.com
+
 * Mon Oct 2 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171001-1
 - Update to 0.0.20171001
 
