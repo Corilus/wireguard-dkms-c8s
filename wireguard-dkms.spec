@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20180519
+Version:        0.0.20180524
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -47,12 +47,16 @@ dkms build -m %{dkms_name} -v %{version} -q
 dkms install -m %{dkms_name} -v %{version} -q
 
 %preun
-dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
+dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade || :
 
 %files
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Wed May 23 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180524-1
+- Update to 0.0.20180524
+- Always exit zero on dkms remove in %preun
+
 * Thu May 17 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180519-1
 - Update to 0.0.20180519
 
