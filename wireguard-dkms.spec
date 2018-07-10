@@ -53,7 +53,7 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade || :
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
-* Fri Jun 29 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180708-1
+* Tue Jul 10 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180708-1
 - Update to 0.0.20180708
 
 * Fri Jun 29 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180625-1
