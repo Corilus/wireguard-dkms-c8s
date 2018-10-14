@@ -3,7 +3,7 @@
 
 Name:           %{dkms_name}-dkms
 Version:        0.0.20181007
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
@@ -15,10 +15,12 @@ Source0:        https://git.zx2c4.com/WireGuard/snapshot/WireGuard-%{version}.ta
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
+BuildRequires:  make
 
 Provides:       %{dkms_name}-kmod = %{epoch}:%{version}-%{release}
 Requires:       dkms
 Requires:       kernel-devel
+Requires:       make
 
 %description
 WireGuard is a novel VPN that runs inside the Linux Kernel and uses
@@ -53,6 +55,9 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade || :
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Sun Oct 14 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181007-2
+- Add make as a dependency
+
 * Sun Oct 7 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181007-1
 - Update to 0.0.20181007
 
