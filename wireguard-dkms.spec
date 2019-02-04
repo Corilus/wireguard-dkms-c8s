@@ -3,7 +3,7 @@
 
 Name:           %{dkms_name}-dkms
 Version:        0.0.20190123
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
@@ -43,18 +43,21 @@ sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/WireGuard-
 mkdir -p %{buildroot}%{_usrsrc}/%{dkms_name}-%{version}/
 make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/%{dkms_name}-%{version}/ -C %{_builddir}/WireGuard-%{version}/src dkms-install
 
-%post
-dkms add -m %{dkms_name} -v %{version} -q --rpm_safe_upgrade
-dkms build -m %{dkms_name} -v %{version} -q
-dkms install -m %{dkms_name} -v %{version} -q
+%posttrans
+dkms add -m %{dkms_name} -v %{version} -q || :
+dkms build -m %{dkms_name} -v %{version} -q || :
+dkms install -m %{dkms_name} -v %{version} -q --force || :
 
 %preun
-dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade || :
+dkms remove -m %{dkms_name} -v %{version} -q --all || :
 
 %files
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Wed Jan 30 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190123-2
+- Move %post to %posttrans to fix upgrade Error! Could not locate dkms.conf file errors.
+
 * Thu Jan 24 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190123-1
 - Update to 0.0.20190123
 
