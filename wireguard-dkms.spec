@@ -2,8 +2,8 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20190123
-Release:        2%{?dist}
+Version:        0.0.20190227
+Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
@@ -55,6 +55,9 @@ dkms remove -m %{dkms_name} -v %{version} -q --all || :
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Wed Feb 27 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190227-1
+- Update to 0.0.20190227
+
 * Wed Jan 30 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190123-2
 - Move %post to %posttrans to fix upgrade Error! Could not locate dkms.conf file errors.
 
