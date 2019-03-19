@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20171101
+Version:        0.0.20190227
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -15,10 +15,12 @@ Source0:        https://git.zx2c4.com/WireGuard/snapshot/WireGuard-%{version}.ta
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
+BuildRequires:  make
 
 Provides:       %{dkms_name}-kmod = %{epoch}:%{version}-%{release}
 Requires:       dkms
 Requires:       kernel-devel
+Requires:       make
 
 %description
 WireGuard is a novel VPN that runs inside the Linux Kernel and uses
@@ -41,18 +43,129 @@ sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/WireGuard-
 mkdir -p %{buildroot}%{_usrsrc}/%{dkms_name}-%{version}/
 make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/%{dkms_name}-%{version}/ -C %{_builddir}/WireGuard-%{version}/src dkms-install
 
-%post
-dkms add -m %{dkms_name} -v %{version} -q --rpm_safe_upgrade
-dkms build -m %{dkms_name} -v %{version} -q
-dkms install -m %{dkms_name} -v %{version} -q
+%posttrans
+dkms add -m %{dkms_name} -v %{version} -q || :
+dkms build -m %{dkms_name} -v %{version} -q || :
+dkms install -m %{dkms_name} -v %{version} -q --force || :
 
 %preun
-dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
+dkms remove -m %{dkms_name} -v %{version} -q --all || :
 
 %files
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Wed Feb 27 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190227-1
+- Update to 0.0.20190227
+
+* Wed Jan 30 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190123-2
+- Move %post to %posttrans to fix upgrade Error! Could not locate dkms.conf file errors.
+
+* Thu Jan 24 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190123-1
+- Update to 0.0.20190123
+
+* Wed Dec 19 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181218-1
+- Update to 0.0.20181218
+
+* Thu Nov 22 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181119-1
+- Update to 0.0.20181119
+
+* Thu Nov 15 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181115-1
+- Update to 0.0.20181115
+
+* Sun Oct 14 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181018-1
+- Update to 0.0.20181018
+
+* Sun Oct 14 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181007-2
+- Add make as a dependency
+
+* Sun Oct 7 2018 Joe Doss <joe@solidadmin.com> - 0.0.20181007-1
+- Update to 0.0.20181007
+
+* Tue Sep 25 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180925-1
+- Update to 0.0.20180925
+
+* Tue Sep 18 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180918-1
+- Update to 0.0.20180918
+
+* Mon Sep 10 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180910-1
+- Update to 0.0.20180910
+
+* Wed Sep 5 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180904-1
+- Update to 0.0.20180904
+
+* Thu Aug 9 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180809-1
+- Update to 0.0.20180809
+
+* Sun Aug 5 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180802-1
+- Update to 0.0.20180802
+
+* Tue Jul 31 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180731-1
+- Update to 0.0.20180731
+- Upstream kernel submission happend today!
+
+* Wed Jul 18 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180718-1
+- Update to 0.0.20180718
+
+* Tue Jul 10 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180708-1
+- Update to 0.0.20180708
+
+* Fri Jun 29 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180625-1
+- Update to 0.0.20180625
+
+* Wed Jun 20 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180620-1
+- Update to 0.0.20180620
+
+* Wed Jun 13 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180613-1
+- Update to 0.0.20180613
+
+* Wed May 30 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180531-1
+- Update to 0.0.20180531
+
+* Wed May 23 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180524-1
+- Update to 0.0.20180524
+- Always exit zero on dkms remove in %preun
+
+* Thu May 17 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180519-1
+- Update to 0.0.20180519
+
+* Sun May 13 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180513-1
+- Update to 0.0.20180513
+- Drop support for RHEL 7.4, moving on instead to RHEL 7.5
+
+* Fri Apr 20 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180420-1
+- Update to 0.0.20180420
+
+* Sun Apr 15 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180413-1
+- Update to 0.0.20180413
+
+* Mon Mar 05 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180304-1
+- Update to 0.0.20180304
+
+* Mon Feb 19 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180218-1
+- Update to 0.0.20180218
+
+* Sun Feb 04 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180202-1
+- Update to 0.0.20180202
+
+* Thu Jan 18 2018 Joe Doss <joe@solidadmin.com> - 0.0.20180118-1
+- Update to 0.0.20180118
+
+* Thu Dec 21 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171221-1
+- Update to 0.0.20171221
+
+* Tue Dec 12 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171211-1
+- Update to 0.0.20171211
+
+* Mon Nov 27 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171127-1
+- Update to 0.0.20171127
+
+* Thu Nov 23 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171122-1
+- Update to 0.0.20171122
+
+* Sat Nov 11 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171111-1
+- Update to 0.0.20171111
+
 * Wed Nov 01 2017 Joe Doss <joe@solidadmin.com> - 0.0.20171101-1
 - Update to 0.0.20171101
 
@@ -71,7 +184,7 @@ dkms remove -m %{dkms_name} -v %{version} --all -q --rpm_safe_upgrade
 
 * Mon Sep 18 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170918-1
 - Update to 0.0.20170918
-- Drop support for RHEL 7.3, moving on instead to RHEL 7.4.
+- Drop support for RHEL 7.3, moving on instead to RHEL 7.4
 
 * Thu Sep 7 2017 Joe Doss <joe@solidadmin.com> - 0.0.20170907-1
 - Update to 0.0.20170907
