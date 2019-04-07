@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20190227
+Version:        0.0.20190406
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -55,6 +55,9 @@ dkms remove -m %{dkms_name} -v %{version} -q --all || :
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Sat Apr 6 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190406-1
+- Update to 0.0.20190406
+
 * Wed Feb 27 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190227-1
 - Update to 0.0.20190227
 
