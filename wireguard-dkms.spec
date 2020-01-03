@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        0.0.20191212
+Version:        0.0.20191219
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
