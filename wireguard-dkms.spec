@@ -1,8 +1,7 @@
 %global debug_package %{nil}
-%global dkms_name wireguard
 
-Name:           %{dkms_name}-dkms
-Version:        0.0.20190913
+Name:           wireguard-dkms
+Version:        0.0.20191127
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -11,13 +10,14 @@ License:        GPLv2
 Group:          System Environment/Kernel
 BuildArch:      noarch
 
-Source0:        https://git.zx2c4.com/WireGuard/snapshot/WireGuard-%{version}.tar.xz
+Source0:        WireGuard-%{version}.tar.xz
+
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
 BuildRequires:  make
 
-Provides:       %{dkms_name}-kmod = %{epoch}:%{version}-%{release}
+Provides:       wireguard-kmod = %{epoch}:%{version}-%{release}
 Requires:       dkms
 Requires:       kernel-devel
 Requires:       make
@@ -30,7 +30,6 @@ the massive headache. It intends to be considerably more performant
 than OpenVPN. WireGuard is designed as a general purpose VPN for
 running on embedded interfaces and super computers alike, fit for
 many different circumstances. It runs over UDP.
-
 %prep
 %setup -q -n WireGuard-%{version}
 
@@ -40,40 +39,73 @@ sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/WireGuard-
 %build
 
 %install
-mkdir -p %{buildroot}%{_usrsrc}/%{dkms_name}-%{version}/
-make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/%{dkms_name}-%{version}/ -C %{_builddir}/WireGuard-%{version}/src dkms-install
+mkdir -p %{buildroot}%{_usrsrc}/wireguard-%{version}/
+make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/wireguard-%{version}/ \
+    -C %{_builddir}/WireGuard-%{version}/src dkms-install
 
-%posttrans
-dkms add -m %{dkms_name} -v %{version} -q || :
-dkms build -m %{dkms_name} -v %{version} -q || :
-dkms install -m %{dkms_name} -v %{version} -q --force || :
+%post
+dkms add -m wireguard -v %{version} -q --rpm_safe_upgrade || :
+dkms build -m wireguard -v %{version} -q || :
+dkms install -m wireguard -v %{version} -q --force || :
+echo "wireguard-dkms-%{version}-%{release}" > /var/lib/dkms/wireguard/%{version}/version
 
 %preun
 # Check if we are running an upgrade
-if [ $1 -gt 1 ]; then
+if [ $1 -ne 0 ]; then
   WG_VERSION=$(dkms status wireguard|grep installed|sort -r -V|awk '{print $2}'|cut -f1 -d,)
   if [ "$WG_VERSION" != "%{version}" ] ; then
+
     true
+
   else
+
     exit 0
+
   fi
 fi
 
-# If we are not running an upgrade remove all of WireGuard!
-WG_SOURCE_VERSION=$(fgrep WIREGUARD_VERSION \
-                    /var/lib/dkms/%{name}/%{version}/source/version.h | \
-                    awk '{print $3}'|sed 's/\"//g')
-WG_RPM_VERSION="@VERSION@"
+# If we are not running an upgrade then remove everything!
+WG_VERSION_FILE=$(cat /var/lib/dkms/wireguard/%{version}/version)
+WG_RPM_VERSION=wireguard-dkms-%{version}-%{release}
+if [ "$WG_RPM_VERSION" = "$WG_VERSION_FILE" ]; then
 
-if [ "$WG_RPM_VERSION" = "$WG_SOURCE_VERSION" ]; then
-    dkms remove -m %{name} -v %{version} -q --all --rpm_safe_upgrade || :
+    dkms remove -m wireguard -v %{version} -q --all --rpm_safe_upgrade || :
+
 fi
+
 exit 0
 
+%clean
+rm -rf %{buildroot}
+
 %files
-%{_usrsrc}/%{dkms_name}-%{version}
+%{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Thu Dec 26 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191226-1
+- Split wireguard-tools back out into it's own spec
+- Switch to https://git.zx2c4.com/wireguard-linux-compat repo
+- Move back to wireguard-dkms spec
+
+* Thu Dec 19 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191219-1
+- Update to 0.0.20191219
+
+* Thu Dec 12 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191212-1
+- Update to 0.0.20191212
+
+* Thu Dec 05 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191205-1
+- Update to 0.0.20191205
+
+* Wed Nov 27 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191127-1
+- Update to 0.0.20191127
+- Add /var/lib/dkms/wireguard/%{version}/version
+- Merge wireguard-tools.spec and wireguard-dkms.spec
+- Move %posttrans back to $post as it didn't fix the Error! Could not locate dkms.conf file issues.
+- Add in logic for better uninstalls and upgrades
+
+* Mon Oct 14 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191012-1
+- Update to 0.0.20191012
+
 * Mon Sep 16 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190913-1
 - Update to 0.0.20190913
 
