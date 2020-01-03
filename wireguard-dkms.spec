@@ -2,7 +2,7 @@
 %global dkms_name wireguard
 
 Name:           %{dkms_name}-dkms
-Version:        0.0.20191012
+Version:        0.0.20190913
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -49,15 +49,31 @@ dkms build -m %{dkms_name} -v %{version} -q || :
 dkms install -m %{dkms_name} -v %{version} -q --force || :
 
 %preun
-dkms remove -m %{dkms_name} -v %{version} -q --all || :
+# Check if we are running an upgrade
+if [ $1 -gt 1 ]; then
+  WG_VERSION=$(dkms status wireguard|grep installed|sort -r -V|awk '{print $2}'|cut -f1 -d,)
+  if [ "$WG_VERSION" != "%{version}" ] ; then
+    true
+  else
+    exit 0
+  fi
+fi
+
+# If we are not running an upgrade remove all of WireGuard!
+WG_SOURCE_VERSION=$(fgrep WIREGUARD_VERSION \
+                    /var/lib/dkms/%{name}/%{version}/source/version.h | \
+                    awk '{print $3}'|sed 's/\"//g')
+WG_RPM_VERSION="@VERSION@"
+
+if [ "$WG_RPM_VERSION" = "$WG_SOURCE_VERSION" ]; then
+    dkms remove -m %{name} -v %{version} -q --all --rpm_safe_upgrade || :
+fi
+exit 0
 
 %files
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
-* Mon Oct 14 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191012-1
-- Update to 0.0.20191012
-
 * Mon Sep 16 2019 Joe Doss <joe@solidadmin.com> - 0.0.20190913-1
 - Update to 0.0.20190913
 
