@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        0.0.20191219
+Version:        0.0.20191226
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -10,8 +10,7 @@ License:        GPLv2
 Group:          System Environment/Kernel
 BuildArch:      noarch
 
-Source0:        WireGuard-%{version}.tar.xz
-
+Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-%{version}.tar.xz
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
@@ -31,17 +30,17 @@ than OpenVPN. WireGuard is designed as a general purpose VPN for
 running on embedded interfaces and super computers alike, fit for
 many different circumstances. It runs over UDP.
 %prep
-%setup -q -n WireGuard-%{version}
+%setup -q -n wireguard-linux-compat-%{version}
 
 # Fix the Makefile for CentOS7 since it ships coreutils from 2013.
-sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/WireGuard-%{version}/src/Makefile
+sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/wireguard-linux-compat-%{version}/src/Makefile
 
 %build
 
 %install
 mkdir -p %{buildroot}%{_usrsrc}/wireguard-%{version}/
 make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/wireguard-%{version}/ \
-    -C %{_builddir}/WireGuard-%{version}/src dkms-install
+    -C %{_builddir}/wireguard-linux-compat-%{version}/src dkms-install
 
 %post
 dkms add -m wireguard -v %{version} -q --rpm_safe_upgrade || :
