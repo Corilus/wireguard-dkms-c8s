@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        0.0.20191226
+Version:        0.0.20200105
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -16,7 +16,7 @@ BuildRequires:  kernel-devel
 BuildRequires:  sed
 BuildRequires:  make
 
-Provides:       wireguard-kmod = %{epoch}:%{version}-%{release}
+Provides:       kmod(wireguard.ko) = %{epoch}:%{version}-%{release}
 Requires:       dkms
 Requires:       kernel-devel
 Requires:       make
@@ -29,8 +29,9 @@ the massive headache. It intends to be considerably more performant
 than OpenVPN. WireGuard is designed as a general purpose VPN for
 running on embedded interfaces and super computers alike, fit for
 many different circumstances. It runs over UDP.
+
 %prep
-%setup -q -n wireguard-linux-compat-%{version}
+%autosetup -p1 -n wireguard-linux-compat-%{version}
 
 # Fix the Makefile for CentOS7 since it ships coreutils from 2013.
 sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/wireguard-linux-compat-%{version}/src/Makefile
@@ -74,13 +75,14 @@ fi
 
 exit 0
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Mon Jan 6 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200105-1
+- Update to 0.0.20200105
+- RPM spec updates
+
 * Thu Dec 26 2019 Joe Doss <joe@solidadmin.com> - 0.0.20191226-1
 - Split wireguard-tools back out into it's own spec
 - Switch to https://git.zx2c4.com/wireguard-linux-compat repo
