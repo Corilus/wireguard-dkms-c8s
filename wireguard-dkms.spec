@@ -2,7 +2,7 @@
 
 Name:           wireguard-dkms
 Version:        0.0.20200215
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
@@ -11,6 +11,7 @@ Group:          System Environment/Kernel
 BuildArch:      noarch
 
 Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-%{version}.tar.xz
+Patch0:         wireguard-linux-compat-RHEL-0.0.20200215.patch
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
@@ -79,6 +80,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Fri Feb 15 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-2
+- Apply patch: https://git.zx2c4.com/wireguard-linux-compat/patch/?id=27ce49e385a87cb784368a0995f8284fd6887d8c
+
 * Fri Feb 14 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-1
 - Update to 0.0.20200215
 
