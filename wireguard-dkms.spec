@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        1.0.20200330
+Version:        1.0.20200401
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -79,6 +79,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Wed Apr 1 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200401-1
+- Update to 1.0.20200401
+
 * Tue Mar 31 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200330-1
 - WireGuard 1.0.0 has been released for Linux 5.6 :)
 
