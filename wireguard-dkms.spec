@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        1.0.20200413
+Version:        1.0.20200426
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -15,11 +15,13 @@ Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-
 BuildRequires:  kernel-devel
 BuildRequires:  sed
 BuildRequires:  make
+BuildRequires:  bc
 
 Provides:       kmod(wireguard.ko) = %{epoch}:%{version}-%{release}
 Requires:       dkms
 Requires:       kernel-devel
 Requires:       make
+Requires:       bc
 
 %description
 WireGuard is a novel VPN that runs inside the Linux Kernel and uses
@@ -79,6 +81,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Mon Apr 27 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200426-1
+- Update to 1.0.20200426
+
 * Mon Apr 13 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200313-1
 - Update to 1.0.20200313
 
