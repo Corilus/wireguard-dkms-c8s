@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        1.0.20200520
+Version:        1.0.20200611
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -81,6 +81,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Thu Jun 11 2020 Joe Doss <joe@solidadmin.com> 1.0.20200611-1
+- Update to 1.0.20200611
+
 * Wed May 20 2020 Joe Doss <joe@solidadmin.com> 1.0.20200520-1
 - Update to 1.0.20200520
 
@@ -105,7 +108,7 @@ exit 0
 * Thu Mar 19 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200318-1
 - Remove patch: wireguard-linux-compat-RHEL-0.0.20200215.patch
 
-* Fri Feb 15 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-2
+* Sat Feb 15 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-2
 - Apply patch: https://git.zx2c4.com/wireguard-linux-compat/patch/?id=27ce49e385a87cb784368a0995f8284fd6887d8c
 
 * Fri Feb 14 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-1
