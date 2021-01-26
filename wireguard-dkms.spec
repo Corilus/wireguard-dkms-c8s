@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        1.0.20201221
+Version:        1.0.20210124
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -81,6 +81,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Tue Jan 26 2021 Joe Doss <joe@solidadmin.com> - 1.0.20210124-1
+- Update to 1.0.20210124
+
 * Mon Dec 21 2020 Joe Doss <joe@solidadmin.com> - 1.0.20201221-1
 - Update to 1.0.20201221
 
