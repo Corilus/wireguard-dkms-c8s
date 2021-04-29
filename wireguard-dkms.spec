@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        0.0.20200318
+Version:        1.0.20210424
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -15,11 +15,13 @@ Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-
 BuildRequires:  kernel-devel
 BuildRequires:  sed
 BuildRequires:  make
+BuildRequires:  bc
 
 Provides:       kmod(wireguard.ko) = %{epoch}:%{version}-%{release}
 Requires:       dkms
 Requires:       kernel-devel
 Requires:       make
+Requires:       bc
 
 %description
 WireGuard is a novel VPN that runs inside the Linux Kernel and uses
@@ -79,10 +81,61 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Wed Apr 28 2021 Joe Doss <joe@solidadmin.com> - 1.0.20210424-1
+- Update to 1.0.20210424
+
+* Mon Feb 22 2021 Joe Doss <joe@solidadmin.com> - 1.0.20210219-1
+- Update to 1.0.20210219
+
+* Tue Jan 26 2021 Joe Doss <joe@solidadmin.com> - 1.0.20210124-1
+- Update to 1.0.20210124
+
+* Mon Dec 21 2020 Joe Doss <joe@solidadmin.com> - 1.0.20201221-1
+- Update to 1.0.20201221
+
+* Thu Nov 12 2020 Joe Doss <joe@solidadmin.com> - 1.0.20201112-1
+- Update to 1.0.20201112
+
+* Tue Sep 8 2020 Joe Doss <joe@solidadmin.com> 1.0.20200908-1
+- Update to 1.0.20200908
+
+* Wed Jul 29 2020 Joe Doss <joe@solidadmin.com> 1.0.20200729-1
+- Update to 1.0.20200729
+
+* Mon Jul 13 2020 Joe Doss <joe@solidadmin.com> 1.0.20200712-1
+- Update to 1.0.20200712
+
+* Thu Jun 25 2020 Joe Doss <joe@solidadmin.com> 1.0.20200623-1
+- Update to 1.0.20200623
+
+* Thu Jun 11 2020 Joe Doss <joe@solidadmin.com> 1.0.20200611-1
+- Update to 1.0.20200611
+
+* Wed May 20 2020 Joe Doss <joe@solidadmin.com> 1.0.20200520-1
+- Update to 1.0.20200520
+
+* Wed May 06 2020 Joe Doss <joe@solidadmin.com> 1.0.20200506-1
+- Update to 1.0.20200506
+
+* Thu Apr 30 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200429-1
+- Update to 1.0.20200429
+
+* Mon Apr 27 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200426-1
+- Update to 1.0.20200426
+
+* Mon Apr 13 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200313-1
+- Update to 1.0.20200313
+
+* Wed Apr 1 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200401-1
+- Update to 1.0.20200401
+
+* Tue Mar 31 2020 Joe Doss <joe@solidadmin.com> - 1.0.20200330-1
+- WireGuard 1.0.0 has been released for Linux 5.6 :)
+
 * Thu Mar 19 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200318-1
 - Remove patch: wireguard-linux-compat-RHEL-0.0.20200215.patch
 
-* Fri Feb 15 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-2
+* Sat Feb 15 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-2
 - Apply patch: https://git.zx2c4.com/wireguard-linux-compat/patch/?id=27ce49e385a87cb784368a0995f8284fd6887d8c
 
 * Fri Feb 14 2020 Joe Doss <joe@solidadmin.com> - 0.0.20200215-1
