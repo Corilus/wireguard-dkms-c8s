@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           wireguard-dkms
-Version:        1.0.20210606
-Release:        2%{?dist}
+Version:        1.0.20211208
+Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
@@ -11,7 +11,6 @@ Group:          System Environment/Kernel
 BuildArch:      noarch
 
 Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-%{version}.tar.xz
-Patch0:         wireguard-linux-centos-stream.patch 
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
@@ -83,6 +82,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Wed Dec 8 2021 Joe Doss <joe@solidadmin.com> - 1.0.20211208-1
+- Update to 1.0.20211208
+
 * Tue Jun 15 2021 Joe Doss <joe@solidadmin.com> - 1.0.20210606-2
 - Fix building on CentOS Stream
 
