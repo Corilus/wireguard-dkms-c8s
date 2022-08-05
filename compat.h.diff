@@ -1,5 +1,5 @@
---- src/compat/compat.h.orig       2022-08-04 16:25:25.601466143 +0200
-+++ src/compat/compat.h    2022-08-04 16:25:45.280232703 +0200
+--- wireguard-linux-compat-1.0.20220627/src/compat/compat.h.orig       2022-08-04 16:25:25.601466143 +0200
++++ wireguard-linux-compat-1.0.20220627/src/compat/compat.h    2022-08-04 16:25:45.280232703 +0200
 @@ -412,16 +412,6 @@
  }
  #define jiffies64_to_nsecs __compat_jiffies64_to_nsecs
