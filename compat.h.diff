@@ -1,5 +1,5 @@
---- wireguard-linux-compat-1.0.20220627/src/compat/compat.h.orig       2022-08-04 16:25:25.601466143 +0200
-+++ wireguard-linux-compat-1.0.20220627/src/compat/compat.h    2022-08-04 16:25:45.280232703 +0200
+--- wireguard-linux-compat-1.0.20220627/src/compat/compat.h.orig	2022-08-05 13:29:17.788011500 +0200
++++ wireguard-linux-compat-1.0.20220627/src/compat/compat.h	2022-08-05 13:29:39.494567700 +0200
 @@ -412,16 +412,6 @@
  }
  #define jiffies64_to_nsecs __compat_jiffies64_to_nsecs
@@ -7,13 +7,13 @@
 -static inline u64 ktime_get_coarse_boottime_ns(void)
 -{
 -#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 17, 0)
--       return ktime_to_ns(ktime_get_boottime());
+-	return ktime_to_ns(ktime_get_boottime());
 -#elif (LINUX_VERSION_CODE < KERNEL_VERSION(5, 1, 12) && LINUX_VERSION_CODE >= KERNEL_VERSION(4, 20, 0)) || LINUX_VERSION_CODE < KERNEL_VERSION(4, 19, 53)
--       return ktime_to_ns(ktime_mono_to_any(ns_to_ktime(jiffies64_to_nsecs(get_jiffies_64())), TK_OFFS_BOOT));
+-	return ktime_to_ns(ktime_mono_to_any(ns_to_ktime(jiffies64_to_nsecs(get_jiffies_64())), TK_OFFS_BOOT));
 -#else
--       return ktime_to_ns(ktime_get_coarse_boottime());
+-	return ktime_to_ns(ktime_get_coarse_boottime());
 -#endif
 -}
  #endif
-
+ 
  #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0)
