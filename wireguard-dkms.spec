@@ -3,7 +3,7 @@
 Name:           wireguard-dkms
 Version:        1.0.20220627
 Release:        1%{?dist}
-Epoch:          1
+Epoch:          2
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
 License:        GPLv2
@@ -11,6 +11,8 @@ Group:          System Environment/Kernel
 BuildArch:      noarch
 
 Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-%{version}.tar.xz
+
+Patch0:         compat.h.diff
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
@@ -38,6 +40,7 @@ many different circumstances. It runs over UDP.
 # Fix the Makefile for CentOS7 since it ships coreutils from 2013.
 sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/wireguard-linux-compat-%{version}/src/Makefile
 
+%patch0 -p0
 
 %build
 
@@ -82,6 +85,9 @@ exit 0
 %{_usrsrc}/wireguard-%{version}
 
 %changelog
+* Fri Aug 5 2022 Dennis Wagelaar <dennis.wagelaar@corilus.be> - 1.0.20220627-2
+- Fix CentOS 8 Stream support
+
 * Tue Jun 28 2022 Joe Doss <joe@solidadmin.com> - 1.0.20220627-1
 - Update to 1.0.20220627
 
