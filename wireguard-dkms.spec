@@ -40,7 +40,7 @@ many different circumstances. It runs over UDP.
 # Fix the Makefile for CentOS7 since it ships coreutils from 2013.
 sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/wireguard-linux-compat-%{version}/src/Makefile
 
-%patch0 -p0
+%patch0 -p1
 
 %build
 
