@@ -12,8 +12,6 @@ BuildArch:      noarch
 
 Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-%{version}.tar.xz
 
-Patch0:         compat.h.diff
-
 BuildRequires:  kernel-devel
 BuildRequires:  sed
 BuildRequires:  make
@@ -39,8 +37,6 @@ many different circumstances. It runs over UDP.
 
 # Fix the Makefile for CentOS7 since it ships coreutils from 2013.
 sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/wireguard-linux-compat-%{version}/src/Makefile
-
-%patch0 -p1
 
 %build
 
