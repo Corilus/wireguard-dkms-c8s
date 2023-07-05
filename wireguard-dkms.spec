@@ -2,7 +2,7 @@
 
 Name:           wireguard-dkms
 Version:        1.0.20220627
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
