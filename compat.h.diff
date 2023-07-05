@@ -17,12 +17,15 @@
  #endif
  
  #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0)
-@@ -706,6 +696,10 @@
+@@ -706,6 +696,13 @@
  #define NAPI_STATE_NO_BUSY_POLL NAPI_STATE_SCHED
  #endif
  
-+#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 18, 448) && !defined(ISRHEL7)
-+#define netif_napi_add(dev, napi, poll, weight) netif_napi_add_weight((dev), (napi), (poll), (weight))
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 18, 0) && !defined(ISRHEL7)
++#include <linux/netdevice.h>
++#ifndef netif_napi_add
++#define netif_napi_add_weight(dev, napi, poll, weight) netif_napi_add((dev), (napi), (poll), (weight))
++#endif
 +#endif
 +
  #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0)

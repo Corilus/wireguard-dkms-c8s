@@ -13,6 +13,7 @@ BuildArch:      noarch
 Source0:        https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-%{version}.tar.xz
 
 Patch0:         compat.h.diff
+Patch1:         peer.c.diff
 
 BuildRequires:  kernel-devel
 BuildRequires:  sed
